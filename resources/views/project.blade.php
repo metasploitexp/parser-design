@@ -1,6 +1,6 @@
 
-<link rel="stylesheet" href="https://arkhitex.ru/local/templates/arkhitex/css/bootstrap.min.css?1566828325140936">
-<link rel="stylesheet" href="https://arkhitex.ru/bitrix/cache/css/s1/arkhitex/template_647859fb7986a48265595310fa9c5bc8/template_647859fb7986a48265595310fa9c5bc8_v1.css?1638532283318571">
+<link rel="stylesheet" href="/css/first.css">
+<link rel="stylesheet" href="/css/second.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/solid.min.css">
     
     <section class="pt-5">
@@ -85,8 +85,9 @@
             </div>
         </div>
     </section>
-<script type="text/javascript" src="https://arkhitex.ru/local/templates/arkhitex/js/jquery-3.4.1.min.js" ></script>
-<script type="text/javascript" src="https://arkhitex.ru/bitrix/js/main/core/core_ls.min.js?15668283077365"></script>
-<script type="text/javascript"  src="https://arkhitex.ru/bitrix/cache/js/s1/arkhitex/kernel_api_core/kernel_api_core_v1.js?163784418612783"></script>
-<script type="text/javascript"  src="https://arkhitex.ru/bitrix/cache/js/s1/arkhitex/template_84c4bd3dd0a6ad38ec79f66f2ea0be11/template_84c4bd3dd0a6ad38ec79f66f2ea0be11_v1.js?1637844186463574"></script>
-<script type="text/javascript"  src="https://arkhitex.ru/bitrix/cache/js/s1/arkhitex/page_f788cbc62d25220852328a9e0e238b37/page_f788cbc62d25220852328a9e0e238b37_v1.js?16378441861174"></script>
+
+<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/js/core_ls.min.js"></script>
+<script type="text/javascript" src="/js/kernel_api_core_v1.js"></script>
+<script type="text/javascript" src="/js/template.js"></script>
+<script type="text/javascript" src="/js/page_v1.js"></script>

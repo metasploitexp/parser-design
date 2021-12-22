@@ -16,10 +16,6 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/parser', [MainController::class, 'parser']);
 
 Route::get('/parser/projects', [MainController::class, 'parserProjects']);

@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="https://arkhitex.ru/bitrix/cache/css/s1/arkhitex/template_647859fb7986a48265595310fa9c5bc8/template_647859fb7986a48265595310fa9c5bc8_v1.css?1638532283318571">
+<link rel="stylesheet" href="/css/second.css">
     
     <div class="designer-detail">
         <div class="gray-bg py-5">
