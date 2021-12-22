@@ -19,7 +19,7 @@ class Project extends Model
         $dom->loadStr($html);
         $projectData = [];
         $designers = $dom->find('.indproject-list-item');
-        $designers = array_slice($designers->toArray(), 0, 1);
+        // $designers = array_slice($designers->toArray(), 0, 1);
 
         foreach ($designers as $designer) {
             $url = 'https://arkhitex.ru' . $designer->find('.indproject-list-item-img', 0)->getAttribute('href');
