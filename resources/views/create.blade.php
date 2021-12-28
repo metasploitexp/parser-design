@@ -25,6 +25,7 @@
             <label for="formFileMultiple" class="form-label">Фотографии:</label>
             <input class="form-control" name="files[]" type="file" id="formFileMultiple" multiple>
         </div>
+        {{-- {{dd($designer['images'])}} --}}
         @foreach($designer['images'] as $key=>$image)
         <div class="mb-3 img-container" data-id="{{$image}}">
             <img src="/storage/uploads/designers/{{$image}}" width="400" height="200" alt=""> &nbsp;

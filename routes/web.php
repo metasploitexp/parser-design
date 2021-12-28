@@ -24,6 +24,7 @@ Route::get('/designers/create', [DesignerController::class, 'create']);
 Route::get('/designers/edit/{id}', [DesignerController::class, 'edit']);
 Route::post('/designers/create/submit', [DesignerController::class, 'submit'])->name('designer-create');
 Route::post('/designers/edit/submit', [DesignerController::class, 'update'])->name('designer-edit');
+Route::get('/designers/delete/{id}', [DesignerController::class, 'delete'])->name('designer-delete');
 Route::get('/designers/{id}', [DesignerController::class, 'choosen']);
 
 Route::get('/projects/create', [ProjectController::class, 'create'])->name('create');

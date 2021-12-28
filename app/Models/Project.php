@@ -138,7 +138,7 @@ class Project extends Model
 
     public function getImagesAttribute($value) {
         if (is_null($value)) {
-            $value = [];
+            $value = json_encode([]);
         }
 
         return $value;

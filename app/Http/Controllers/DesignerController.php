@@ -45,7 +45,7 @@ class DesignerController extends Controller
         $action = route('designer-edit');
         $designer = Designer::where(['id' => $id])->first();
         if ($designer) {
-            // $designer['images'] = $designer['images'];
+            $designer['images'] = json_decode($designer['images']);
             // dd($designer);
         return view('create', [
             'action' => $action,
@@ -154,5 +154,16 @@ class DesignerController extends Controller
                 'status' => true,
             ]);
         }
+    }
+
+    public function delete($id) {
+        $designer = Designer::where(['id' => $id])->first();
+        if ($designer) {
+            $name = $designer->name;
+            // $projects = Project::where(['author' => $name])->get();
+            // $projects->delete();
+            // $designer->delete();
+        } 
+        return view('choosen');
     }
 }

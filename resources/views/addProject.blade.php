@@ -21,7 +21,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputFullPrice" class="form-label">Полная стоимость:</label>
-            <input type="text" value="{{html_entity_decode($project['fullPrice']) ?? ''}}" name="fullPrice" class="form-control" id="exampleInputFullPrice" aria-describedby="fullPriceHelp">
+            <input type="text" value="{{html_entity_decode($project['fullPrice'] ?? '')}}" name="fullPrice" class="form-control" id="exampleInputFullPrice" aria-describedby="fullPriceHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputFootage" class="form-label">Метраж:</label>
@@ -48,17 +48,22 @@
             <input class="form-control" name="images[]" type="file" id="formFileMultiple" multiple>
         </div>
         {{-- {{dd($project['images'])}} --}}
-        @foreach($project['images'] as $key=>$image)
-        <div class="mb-3 img-container" data-id="{{$image}}">
-            <img src="/storage/uploads/projects/{{$image}}" width="400" height="200" alt=""> &nbsp;
-            <button type="button" class="btn btn-danger delete">delete</button>
-        </div>
-        @endforeach
+        
         @if(Route::currentRouteName() === 'create')
+        
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label">Планы:</label>
                 <input class="form-control" name="plans[]" type="file" id="formFileMultiple" multiple>
             </div>
+        @else 
+            {{-- {{dd($project['images'])}} --}}
+            @foreach($project['images'] as $key=>$image)
+            <div class="mb-3 img-container" data-id="{{$image}}">
+                <img src="/storage/uploads/projects/{{$image}}" width="400" height="200" alt=""> &nbsp;
+                <button type="button" class="btn btn-danger delete">delete</button>
+            </div>
+            @endforeach
+
         @endif
         <input type="hidden" name="files_to_delete">
         <button type="submit" class="btn btn-success">Submit</button>

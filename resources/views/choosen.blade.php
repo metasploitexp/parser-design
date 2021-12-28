@@ -10,7 +10,9 @@
                     </div>
                     <div class="col">
                         <h1 class="font-24 mb-1">
-                            {{$designer['name']}}
+                            {{$designer['name']}} &nbsp;
+                            <a href="/designers/edit/{{$designer['id']}}" class="btn btn-outline-info btn-sm">edit</a> &nbsp;
+                            <a href="/designers/delete/{{$designer['id']}}" class="btn btn-outline-warning btn-sm">delete</a>
                         </h1>
                         <div class="font-14 mb-1">
                             {{$designer['speciality']}}
