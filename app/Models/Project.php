@@ -10,6 +10,8 @@ use Storage;
 
 class Project extends Model
 {
+    protected $guarded = [];
+    public $timestamps = false;
     static private $baseUrl = 'https://arkhitex.ru/designer';
     protected $table = 'projects';
 
@@ -132,5 +134,29 @@ class Project extends Model
             }   
         }
         self::insert($projectData);
+    }
+
+    public function getImagesAttribute($value) {
+        if (is_null($value)) {
+            $value = [];
+        }
+
+        return $value;
+    }
+
+    public function getPlansAttribute($value) {
+        if (is_null($value)) {
+            $value = [];
+        }
+
+        return $value;
+    }
+
+    public function getDrawingAttribute($value) {
+        if (is_null($value)) {
+            $value = [];
+        }
+
+        return $value;
     }
 }

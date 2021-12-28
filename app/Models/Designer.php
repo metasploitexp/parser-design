@@ -9,6 +9,8 @@ use Storage;
 
 class Designer extends Model
 {
+    protected $guarded = [];
+    public $timestamps = false;
     static private $baseUrl = 'https://arkhitex.ru';
     protected $table = 'designers';
 
@@ -44,4 +46,11 @@ class Designer extends Model
         self::insert($designersData);
     }
     
+    public function getImagesAttribute($value) {
+        if (is_null($value)) {
+            $value = [];
+        }
+
+        return $value;
+    }
 }
