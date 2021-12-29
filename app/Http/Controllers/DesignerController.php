@@ -21,8 +21,9 @@ class DesignerController extends Controller
     public function choosen($id) {
         $designer = Designer::where(['id' => $id])->get()[0];
         $designer['images'] = json_decode($designer['images']);
-        $name = $designer['name'];
-        $projects = Project::where(['author' => $name])->get()->toArray();
+        
+        $projects = Project::where(['designer_id' => $id])->get()->toArray();
+
         foreach ($projects as $key=>$project) {
             $projects[$key]['images'] = json_decode($project['images']);
         }
@@ -44,9 +45,9 @@ class DesignerController extends Controller
     public function edit($id) {
         $action = route('designer-edit');
         $designer = Designer::where(['id' => $id])->first();
+
         if ($designer) {
             $designer['images'] = json_decode($designer['images']);
-            // dd($designer);
         return view('create', [
             'action' => $action,
             'designer' => $designer->toArray(),
@@ -67,15 +68,14 @@ class DesignerController extends Controller
             'city' => ['required'],
             'description' => ['required'],
         ]);
-        // $req = $request->toArray();
         
         $files = $request->toArray()['files'];
         $fileNames = [];
+
         foreach ($files as $file) {
             $path = $file->store('designers', 'public');
             $name = substr($path, strrpos($path, '/')+1);
             $fileNames[] = $name;
-            
         }
         
         Designer::insert([
@@ -86,15 +86,12 @@ class DesignerController extends Controller
             'images' => $fileNames,
         ]);
     
-        
         $designers = Designer::all();
+
         foreach ($designers as $designer) {
             $designer['images'] = $designer['images'];
         }
-        // dd($designer);
-        return view('designers', [
-            'designers' => $designers->toArray(),
-        ]);
+        return redirect('/designers');
     }
 
     public function update(Request $request) {
@@ -105,10 +102,7 @@ class DesignerController extends Controller
             'description' => ['required'],
         ]);
         $scratch = explode(',', $request->files_to_delete);
-        // dd($scratch);
-
         $data = $request->toArray();
-        
         $fileNames = [];
         
         if (isset($data['files'])) {
@@ -119,7 +113,6 @@ class DesignerController extends Controller
                 $name = substr($path, strrpos($path, '/')+1);
                 $fileNames[] = $name;
             }
-            
         }
 
         $designer = Designer::where(['id' => $data['id']])->first();
@@ -131,16 +124,14 @@ class DesignerController extends Controller
         }
 
         $images = $designer['images'];
-        // dd($designer['images']);
+
         foreach ($images as $key=>$image) {
             $isMatch = in_array($image, $scratch);
             if ($isMatch) {
                 unset($images[$key]);
             }
-            
         }
         $images = array_merge($images, $fileNames);
-        // dd($images);
         $isUpdate = $designer->update([
             'name' => $request['designer'],
             'speciality' => $request['special'],
@@ -158,12 +149,11 @@ class DesignerController extends Controller
 
     public function delete($id) {
         $designer = Designer::where(['id' => $id])->first();
+
         if ($designer) {
-            $name = $designer->name;
-            // $projects = Project::where(['author' => $name])->get();
-            // $projects->delete();
-            // $designer->delete();
+            Project::where(['designer_id' => $id])->delete();
+            $designer->delete();
         } 
-        return view('choosen');
+        return redirect('/designers');
     }
 }

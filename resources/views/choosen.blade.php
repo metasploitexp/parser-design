@@ -35,11 +35,15 @@
                 Проекты дизайнера
             </div>
             <div class="row align-items-stretch">
+
                 @foreach($projects as $project)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-4">
                         <div class="indproject-list-item magazin-list-item">
+                            
+                            @if (isset($project['images'][0]))
                             <a class="indproject-list-item-img" href="/projects/{{$project['id']}}"
                             style="background-image: url(/storage/uploads/projects/{{$project['images'][0]}})"></a>
+                            @endif
                             <div>
                                 <div class="row">
                                     <div class="col">
@@ -63,8 +67,12 @@
                                                 Автор:
                                             </span>
                                             <a href="#" class="gold">
-                                                {{$project['author']}}
+                                                {{$designer['name']}}
                                             </a>
+                                        </div> <br>
+                                        <div class="font-14">
+                                            <a href="/projects/edit/{{$project['id']}}" class="btn btn-outline-warning btn-lg">Edit</a> &nbsp;
+                                            <a href="/projects/delete/{{$project['id']}}" class="btn btn-outline-danger btn-lg">Delete</a>
                                         </div>
                                     </div>
                                 </div>

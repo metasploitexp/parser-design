@@ -4,7 +4,7 @@
    
     <form class="container col-6" enctype="multipart/form-data" action="{{$action}}" method="post">
         @csrf
-        <input type="hidden" name="id" value="{{$designer['id']}}">
+        <input type="hidden" name="id" value="{{$designer['id'] ?? ''}}">
         <div class="mb-3">
           <label for="exampleInputName" class="form-label">Имя дизайнера:</label>
           <input type="name" name="designer" value="{{$designer['name'] ?? ''}}" class="form-control" id="exampleInputName" aria-describedby="nameHelp">
@@ -25,13 +25,15 @@
             <label for="formFileMultiple" class="form-label">Фотографии:</label>
             <input class="form-control" name="files[]" type="file" id="formFileMultiple" multiple>
         </div>
-        {{-- {{dd($designer['images'])}} --}}
-        @foreach($designer['images'] as $key=>$image)
-        <div class="mb-3 img-container" data-id="{{$image}}">
-            <img src="/storage/uploads/designers/{{$image}}" width="400" height="200" alt=""> &nbsp;
-            <button type="button" class="btn btn-danger delete">delete</button>
-        </div>
-        @endforeach
+        
+        @if (Route::currentRouteName() !== 'make-designer' && isset($designer['images']))
+            @foreach($designer['images'] as $key=>$image)
+                <div class="mb-3 img-container" data-id="{{$image}}">
+                    <img src="/storage/uploads/designers/{{$image}}" width="400" height="200" alt=""> &nbsp;
+                    <button type="button" class="btn btn-danger delete">delete</button>
+                </div>
+            @endforeach
+        @endif
         <input type="hidden" name="files_to_delete">
         <button type="submit" class="btn btn-success">Submit</button>
     </form>

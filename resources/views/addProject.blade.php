@@ -3,9 +3,15 @@
 @section('content')
     <form class="container col-6" enctype="multipart/form-data" action="{{$action}}" method="post">
         @csrf
+        <input type="hidden" value="{{$id ?? ''}}" name="id">
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Имя дизайнера:</label>
-            <input type="text" value="{{$project['author'] ?? ''}}" name="author" class="form-control" id="exampleInputName" aria-describedby="nameHelp">
+                <select class="form-control" name="selected">
+                    <option selected>Выберите...</option>
+                    @foreach($designers as $designer)
+                        <option value="{{$designer['id']}}">{{$designer['name']}}</option>
+                    @endforeach
+                </select>
         </div>
         <div class="mb-3">
             <label for="exampleInputTitle" class="form-label">Название проекта:</label>
@@ -47,23 +53,20 @@
             <label for="formFileMultiple" class="form-label">Фотографии:</label>
             <input class="form-control" name="images[]" type="file" id="formFileMultiple" multiple>
         </div>
-        {{-- {{dd($project['images'])}} --}}
         
         @if(Route::currentRouteName() === 'create')
-        
             <div class="mb-3">
                 <label for="formFileMultiple" class="form-label">Планы:</label>
                 <input class="form-control" name="plans[]" type="file" id="formFileMultiple" multiple>
             </div>
         @else 
-            {{-- {{dd($project['images'])}} --}}
+
             @foreach($project['images'] as $key=>$image)
             <div class="mb-3 img-container" data-id="{{$image}}">
                 <img src="/storage/uploads/projects/{{$image}}" width="400" height="200" alt=""> &nbsp;
                 <button type="button" class="btn btn-danger delete">delete</button>
             </div>
             @endforeach
-
         @endif
         <input type="hidden" name="files_to_delete">
         <button type="submit" class="btn btn-success">Submit</button>

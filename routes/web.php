@@ -20,8 +20,8 @@ Route::get('/parser', [MainController::class, 'parser']);
 Route::get('/parser/projects', [MainController::class, 'parserProjects']);
 
 Route::get('/designers', [DesignerController::class, 'designers']);
-Route::get('/designers/create', [DesignerController::class, 'create']);
-Route::get('/designers/edit/{id}', [DesignerController::class, 'edit']);
+Route::get('/designers/create', [DesignerController::class, 'create'])->name('make-designer');
+Route::get('/designers/edit/{id}', [DesignerController::class, 'edit'])->name('redact-designer');
 Route::post('/designers/create/submit', [DesignerController::class, 'submit'])->name('designer-create');
 Route::post('/designers/edit/submit', [DesignerController::class, 'update'])->name('designer-edit');
 Route::get('/designers/delete/{id}', [DesignerController::class, 'delete'])->name('designer-delete');
@@ -31,4 +31,5 @@ Route::get('/projects/create', [ProjectController::class, 'create'])->name('crea
 Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
 Route::post('/projects/create/submit', [ProjectController::class, 'submit'])->name('project-create');
 Route::post('/projects/edit/submit', [ProjectController::class, 'update'])->name('project-edit');
+Route::get('/projects/delete/{id}', [ProjectController::class, 'delete'])->name('project-delete');
 Route::get('/projects/{id}', [ProjectController::class, 'project']);

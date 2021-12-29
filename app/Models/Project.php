@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PHPHtmlParser\Dom;
 use Storage;
-
+use App\Models\Designer;
 
 class Project extends Model
 {
@@ -20,9 +20,9 @@ class Project extends Model
         $dom = new Dom;
         $dom->loadStr($html);
         $projectData = [];
-        $designers = $dom->find('.indproject-list-item');
-        // $designers = array_slice($designers->toArray(), 0, 1);
-
+        $designers = $dom->find('.indproject-list-item')->toArray();
+        // $designers = array_slice($designers, 0, 2);
+        
         foreach ($designers as $designer) {
             $url = 'https://arkhitex.ru' . $designer->find('.indproject-list-item-img', 0)->getAttribute('href');
             $designerHtml = file_get_contents($url);
@@ -63,7 +63,10 @@ class Project extends Model
 
                             if ($isMatch !== false) {
                                 echo $param->find('.font-16', 0);
-
+                                if ($key == 'author') {
+                                    $designer = Designer::where(['name' => $param->find('.font-16', 0)->innerText])->first();
+                                    $itemData['designer_id'] = $designer->id;
+                                }
                                 if ($key == 'drawing') {
                                     $name = substr($param->find('.font-16 a', 0)->getAttribute('href'), strrpos($param->find('.font-16 a', 0)->getAttribute('href'), '/') + 1);
                                     $contents = file_get_contents('https://arkhitex.ru' . $param->find('.font-16 a', 0)->getAttribute('href'));
@@ -146,7 +149,7 @@ class Project extends Model
 
     public function getPlansAttribute($value) {
         if (is_null($value)) {
-            $value = [];
+            $value = json_encode([]);
         }
 
         return $value;
@@ -154,9 +157,13 @@ class Project extends Model
 
     public function getDrawingAttribute($value) {
         if (is_null($value)) {
-            $value = [];
+            $value = json_encode([]);
         }
 
         return $value;
+    }
+
+    public function author() {
+        return $this->belongsTo(Designer::class, 'designer_id', 'id');
     }
 }

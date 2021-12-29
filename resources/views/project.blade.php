@@ -10,6 +10,7 @@
             </h1>
             <hr>
             <div class="row">
+                 
                 @foreach($newProject as $key=>$param)
                     <div class="col-auto mb-4">
                         <div class="font-15 gray mb-2">
@@ -52,6 +53,7 @@
                         Что входит?
                     </div>
                     <div class="what-is-included mb-4">
+
                         @foreach($plans as $key => $plan)
                             <a class="collapsed d-block mb-2" href="#what-is-included-{{$key}}" data-toggle="collapse" aria-expanded="false" aria-controls="what-is-included-{{$key}}">
                                 <i class="fas fa-minus-square fa-fw gold mr-2"></i>{{$plan['title']}}
@@ -66,12 +68,14 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="lightgray-bg p-4 mb-4">
+
                         @foreach($newProject as $key=>$param)
                             <div class="mb-4 px-lg-2">
                                 <div class="font-15 gray mb-2">
                                     {{$param[0]}}
                                 </div>
                                 <div class="font-18 gold ">
+                                    
                                     @if($param[0] == 'Чертеж проекта') 
                                         <a href="/storage/uploads/plans/{{$param[1][0]}}">Загрузить</a>
                                     @else 

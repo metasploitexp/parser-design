@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Designer;
 
 class ProjectController extends Controller
 {
     public function project($id) {
-        $project = Project::where(['id' => $id])->first()->toArray();
-        $plans = json_decode($project['plans'], true);
-        foreach ($plans as $key=>$plan) {
-            $plans[$key]['title'] = json_decode($plan['title']);
+        $project = Project::where(['id' => $id])->with(['author'])->first()->toArray();
+        $plans = [];
+
+        if (!empty($project['plans'])) {
+            $plans = json_decode($project['plans'], true);
+            foreach ($plans as $key=>$plan) {
+                $plans[$key]['title'] = json_decode($plan['title']);
+            }
         }
+       
         $newProject = [];
+        $newProject['name'] = ['Дизайнер', $project['author']['name']];
         $columns = [
+            'name' => 'Дизайнер',
             'style' => 'Стиль',
-            'author' => 'Дизайнер',
             'price' => 'Цена за м2',
             'fullPrice' => 'Стоимость',
             'productionTime' => 'Сроки производства',
@@ -26,12 +33,15 @@ class ProjectController extends Controller
             'drawing' => 'Чертеж проекта'
         ];
         foreach($project as $key=>$param) {
+
             if ($key == 'drawing') {
                 $param = json_decode($param);   
             }
+
             if ($key == 'images') {
                 $project[$key] = json_decode($param);
             }
+
             foreach($columns as $sKey=>$value) {
                 
                 if (($key == $sKey) && ($param != null)) {
@@ -39,6 +49,7 @@ class ProjectController extends Controller
                 }
             } 
         }
+        
         return view('project', [
             'project' => $project,
             'newProject' => $newProject,
@@ -48,52 +59,55 @@ class ProjectController extends Controller
 
     public function create() {
         $action = route('project-create');
+        $designers = Designer::all();
         return view('addProject', [
             'action' => $action,
+            'designers' => $designers,
         ]);
     }
 
     public function edit($id) {
         $action = route('project-edit');
         $project = Project::where(['id' => $id])->first();
-        
+        $designers = Designer::all();
+
         if ($project) {
             $project['images'] = json_decode($project['images']);
-            // dd(gettype($project['images']));
             return view('addProject', [
                 'action' => $action,
                 'project' => $project,
+                'designers' => $designers,
+                'id' => $id,
             ]);
         } else {
             return view('addProject', [
                 'action' => $action,
+                'designers' => $designers,
             ]);
         }
     }
 
     public function submit(Request $request) {
         $validated = $request->validate([
-            'author' => ['required'],
+            'selected' => ['required'],
             'title' => ['required'],
             
         ]);
-        
-       
-        
         $req = $request->toArray();
         $fileNames = [];
-
-        if ($req['images']) {
+        
+        if (isset($req['images'])) {
             $files = $req['images'];
+
             foreach ($files as $file) {
                 $path = $file->store('projects', 'public');
                 $name = substr($path, strrpos($path, '/')+1);
                 $fileNames[] = $name;   
             }
         }
-        // dd($req);
         $data = [
-            'author' => $req['author'],
+            
+            'designer_id' => $req['selected'],
             'title' => $req['title'],
             'style' => $req['style'],
             'price' => $req['price'],
@@ -107,20 +121,20 @@ class ProjectController extends Controller
         ];
         
         Project::insert($data);
-        
-        return 'okey';
+
+        return response()->json([
+            'status' => true
+        ]);
     }
 
     public function update(Request $request) {
         $validated = $request->validate([
-            'author' => ['required'],
+            'selected' => ['required'],
             'title' => ['required'],
         ]);
-
+        
         $scratch = explode(',', $request->files_to_delete);
-
         $data = $request->toArray();
-        // dd($data);
         $fileNames = [];
         
         if (isset($data['images'])) {
@@ -130,11 +144,10 @@ class ProjectController extends Controller
                 $path = $file->store('projects', 'public');
                 $name = substr($path, strrpos($path, '/')+1);
                 $fileNames[] = $name;
-            }
-            
+            }  
         }
 
-        $project = Project::where(['author' => $data['author']])->first();
+        $project = Project::where(['id' => $data['id']])->first();
 
         if (!$project) {
             return response()->json([
@@ -143,8 +156,7 @@ class ProjectController extends Controller
         }
 
         $images = json_decode($project['images']);
-        // dd($designer['images']);
-        // dd($images);
+
         foreach ($images as $key=>$image) {
             $isMatch = in_array($image, $scratch);
             if ($isMatch) {
@@ -153,9 +165,10 @@ class ProjectController extends Controller
             
         }
         $images = array_merge($images, $fileNames);
-        // dd($images);
+        $designer = Designer::where(['id' => $data['selected']])->first();
         $isUpdate = $project->update([
-            'author' => $request['author'],
+            
+            'designer_id' => $data['selected'],
             'title' => $request['title'],
             'style' => $request['style'],
             'price' => $request['price'],
@@ -175,4 +188,8 @@ class ProjectController extends Controller
         }
     }
     
+    public function delete($id) {
+        Project::where(['id' => $id])->delete();
+        return redirect('/designers');
+    }
 }
