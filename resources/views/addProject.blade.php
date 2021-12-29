@@ -54,13 +54,7 @@
             <input class="form-control" name="images[]" type="file" id="formFileMultiple" multiple>
         </div>
         
-        @if(Route::currentRouteName() === 'create')
-            <div class="mb-3">
-                <label for="formFileMultiple" class="form-label">Планы:</label>
-                <input class="form-control" name="plans[]" type="file" id="formFileMultiple" multiple>
-            </div>
-        @else 
-
+        @if(Route::currentRouteName() !== 'create' && isset($projects['images']))
             @foreach($project['images'] as $key=>$image)
             <div class="mb-3 img-container" data-id="{{$image}}">
                 <img src="/storage/uploads/projects/{{$image}}" width="400" height="200" alt=""> &nbsp;
