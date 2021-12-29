@@ -18,7 +18,6 @@ class ProjectController extends Controller
                 $plans[$key]['title'] = json_decode($plan['title']);
             }
         }
-       
         $newProject = [];
         $newProject['name'] = ['Дизайнер', $project['author']['name']];
         $columns = [
@@ -60,6 +59,7 @@ class ProjectController extends Controller
     public function create() {
         $action = route('project-create');
         $designers = Designer::all();
+
         return view('addProject', [
             'action' => $action,
             'designers' => $designers,
@@ -80,9 +80,9 @@ class ProjectController extends Controller
                 'id' => $id,
             ]);
         } else {
-            return view('addProject', [
-                'action' => $action,
-                'designers' => $designers,
+
+            return response()->json([
+                'status' => false,
             ]);
         }
     }
@@ -106,7 +106,6 @@ class ProjectController extends Controller
             }
         }
         $data = [
-            
             'designer_id' => $req['selected'],
             'title' => $req['title'],
             'style' => $req['style'],
@@ -146,28 +145,26 @@ class ProjectController extends Controller
                 $fileNames[] = $name;
             }  
         }
-
         $project = Project::where(['id' => $data['id']])->first();
 
         if (!$project) {
+
             return response()->json([
                 'status' => false
             ]);
         }
-
         $images = json_decode($project['images']);
 
         foreach ($images as $key=>$image) {
             $isMatch = in_array($image, $scratch);
+
             if ($isMatch) {
                 unset($images[$key]);
             }
-            
         }
         $images = array_merge($images, $fileNames);
         $designer = Designer::where(['id' => $data['selected']])->first();
         $isUpdate = $project->update([
-            
             'designer_id' => $data['selected'],
             'title' => $request['title'],
             'style' => $request['style'],
@@ -182,6 +179,7 @@ class ProjectController extends Controller
         ]);
 
         if ($isUpdate) {
+            
             return response()->json([
                 'status' => true,
             ]);

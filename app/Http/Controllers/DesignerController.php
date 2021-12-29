@@ -10,23 +10,25 @@ class DesignerController extends Controller
 {
     public function designers() {
         $designers = Designer::all();
+
         foreach ($designers as $designer) {
             $designer['images'] = json_decode($designer['images']);
         }
+
         return view('designers', [
             'designers' => $designers->toArray(),
         ]);
     }
 
     public function choosen($id) {
-        $designer = Designer::where(['id' => $id])->get()[0];
+        $designer = Designer::where(['id' => $id])->first();
         $designer['images'] = json_decode($designer['images']);
-        
         $projects = Project::where(['designer_id' => $id])->get()->toArray();
 
         foreach ($projects as $key=>$project) {
             $projects[$key]['images'] = json_decode($project['images']);
         }
+
         return view('choosen', [
             'designer' => $designer,
             'projects' => $projects,
@@ -35,10 +37,10 @@ class DesignerController extends Controller
 
     public function create() {
         $action = route('designer-create');
+
         return view('create', [
             'action' => $action,
-        ]);
-        
+        ]);   
     }
 
 
@@ -48,17 +50,17 @@ class DesignerController extends Controller
 
         if ($designer) {
             $designer['images'] = json_decode($designer['images']);
+
         return view('create', [
             'action' => $action,
             'designer' => $designer->toArray(),
         ]);
         } else {
-            $action = route('designer-create');
-            return view('create', [
-                'action' => $action,
+
+            return response()->json([
+                'status' => false,
             ]);
-        } 
-        
+        }   
     }
 
     public function submit(Request $request) {
@@ -85,12 +87,7 @@ class DesignerController extends Controller
             'description' => $request['description'],
             'images' => $fileNames,
         ]);
-    
-        $designers = Designer::all();
 
-        foreach ($designers as $designer) {
-            $designer['images'] = $designer['images'];
-        }
         return redirect('/designers');
     }
 
@@ -114,7 +111,6 @@ class DesignerController extends Controller
                 $fileNames[] = $name;
             }
         }
-
         $designer = Designer::where(['id' => $data['id']])->first();
 
         if (!$designer) {
@@ -122,11 +118,11 @@ class DesignerController extends Controller
                 'status' => false
             ]);
         }
-
         $images = $designer['images'];
 
         foreach ($images as $key=>$image) {
             $isMatch = in_array($image, $scratch);
+
             if ($isMatch) {
                 unset($images[$key]);
             }
@@ -141,6 +137,7 @@ class DesignerController extends Controller
         ]);
 
         if ($isUpdate) {
+
             return response()->json([
                 'status' => true,
             ]);
@@ -154,6 +151,7 @@ class DesignerController extends Controller
             Project::where(['designer_id' => $id])->delete();
             $designer->delete();
         } 
+        
         return redirect('/designers');
     }
 }

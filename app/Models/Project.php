@@ -12,11 +12,11 @@ class Project extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
-    static private $baseUrl = 'https://arkhitex.ru/designer';
+    static private $baseUrl = 'https://arkhitex.ru';
     protected $table = 'projects';
 
     public function getData() {
-        $html = file_get_contents(self::$baseUrl);
+        $html = file_get_contents(self::$baseUrl . '/designer');
         $dom = new Dom;
         $dom->loadStr($html);
         $projectData = [];
@@ -24,14 +24,14 @@ class Project extends Model
         // $designers = array_slice($designers, 0, 2);
         
         foreach ($designers as $designer) {
-            $url = 'https://arkhitex.ru' . $designer->find('.indproject-list-item-img', 0)->getAttribute('href');
+            $url = self::$baseUrl . $designer->find('.indproject-list-item-img', 0)->getAttribute('href');
             $designerHtml = file_get_contents($url);
             $designerDom = new Dom;
             $designerDom->loadStr($designerHtml);
             $projects = $designerDom->find('.indproject-list-item.magazin-list-item');
 
             foreach($projects as $project) {
-                $projectUrl = 'https://arkhitex.ru' . $project->find('.indproject-list-item-img', 0)->getAttribute('href');
+                $projectUrl = self::$baseUrl . $project->find('.indproject-list-item-img', 0)->getAttribute('href');
                 $projectHtml = file_get_contents($projectUrl);
                 $projectDom = new Dom;
                 $projectDom->loadStr($projectHtml);
@@ -63,10 +63,12 @@ class Project extends Model
 
                             if ($isMatch !== false) {
                                 echo $param->find('.font-16', 0);
+
                                 if ($key == 'author') {
                                     $designer = Designer::where(['name' => $param->find('.font-16', 0)->innerText])->first();
                                     $itemData['designer_id'] = $designer->id;
                                 }
+
                                 if ($key == 'drawing') {
                                     $name = substr($param->find('.font-16 a', 0)->getAttribute('href'), strrpos($param->find('.font-16 a', 0)->getAttribute('href'), '/') + 1);
                                     $contents = file_get_contents('https://arkhitex.ru' . $param->find('.font-16 a', 0)->getAttribute('href'));
@@ -117,6 +119,7 @@ class Project extends Model
                 $planTitles = [];
 
                 foreach ($titles as $key=>$title) {
+                    
                     if ($key != 0) {
                         $planTitles[] = $title->innerText;
                     }
