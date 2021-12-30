@@ -34,7 +34,7 @@ class Designer extends Model
             $itemData['description'] = $designerDom->find('.designer-detail .container .font-14', 2)->innerText;
             $itemData['hash'] = md5($itemData['name'] . $itemData['city']);
 
-            if (self::where(['hash' => $itemData['hash']])->first()) {
+            if (self::where(['hash' => $itemData['hash']])->exists()) {
                 continue;
             }
 

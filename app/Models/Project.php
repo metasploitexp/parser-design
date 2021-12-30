@@ -34,7 +34,7 @@ class Project extends Model
                 $path = $project->find('.indproject-list-item-img', 0)->getAttribute('href');
                 $hash = md5($path);
 
-                if (self::where(['hash' => $hash])->first()) {
+                if (self::where(['hash' => $hash])->exists()) {
                     continue;
                 }
 
