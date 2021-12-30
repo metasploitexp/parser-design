@@ -145,10 +145,11 @@ class Project extends Model
                     ];
                 }
                 $itemData['plans'] = json_encode($plans, JSON_UNESCAPED_UNICODE);
-                $projectData[] = $itemData;   
+                // $projectData[] = $itemData;   
+                self::insert($itemData);
             }   
         }
-        self::insert($projectData);
+        // self::insert($projectData);
     }
 
     public function getImagesAttribute($value) {
