@@ -65,7 +65,11 @@ class Project extends Model
                         
                         foreach($columns as $key=>$column) {
                             $isMatch = stripos($pat, $column);
-                            $itemData[$key] = $itemData[$key] ?? null;
+
+                            if ($key !== 'author') {
+                                $itemData[$key] = $itemData[$key] ?? null;
+                            }
+                            
                             $itemData['title'] = $projectDom->find('.arkhitex-detail-title.m-0', 0)->innerText;
 
                             if ($isMatch !== false) {
