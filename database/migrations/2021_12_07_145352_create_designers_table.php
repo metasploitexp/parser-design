@@ -19,6 +19,7 @@ class CreateDesignersTable extends Migration
             $table->text('speciality');
             $table->text('city');
             $table->text('description');
+            $table->json('images');
         });
 
     }

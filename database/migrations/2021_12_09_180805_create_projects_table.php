@@ -15,10 +15,9 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->text('userId');
+            $table->text('designer_id');
             $table->text('title');
             $table->text('style');
-            $table->text('author');
             $table->text('price');
             $table->text('fullPrice');
             $table->text('productionTime');
@@ -28,6 +27,7 @@ class CreateProjectsTable extends Migration
             $table->text('description');
             $table->text('plans');
             $table->text('images');
+            $table->text('drawing');
         });
     }
 
