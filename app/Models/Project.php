@@ -31,7 +31,14 @@ class Project extends Model
             $projects = $designerDom->find('.indproject-list-item.magazin-list-item');
 
             foreach($projects as $project) {
-                $projectUrl = self::$baseUrl . $project->find('.indproject-list-item-img', 0)->getAttribute('href');
+                $path = $project->find('.indproject-list-item-img', 0)->getAttribute('href');
+                $hash = md5($path);
+
+                if (self::where(['hash' => $hash])->first()) {
+                    continue;
+                }
+
+                $projectUrl = self::$baseUrl . $path;
                 $projectHtml = file_get_contents($projectUrl);
                 $projectDom = new Dom;
                 $projectDom->loadStr($projectHtml);
@@ -101,8 +108,10 @@ class Project extends Model
                     echo $name;
                     $images[] = $name;
                 }
+                $itemData['hash'] = $hash;
                 $itemData['images'] = json_encode($images);
                 
+
                 $planList = [];
                 $planList[] = $projectDom->find('.col-12.col-md-8.mb-4 .what-is-included.mb-4 #what-is-included-1 a')->getAttribute('href');
                 $planList[] = $projectDom->find('.col-12.col-md-8.mb-4 .what-is-included.mb-4 #what-is-included-4 a')->getAttribute('href');

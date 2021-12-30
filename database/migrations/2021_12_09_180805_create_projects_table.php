@@ -28,6 +28,7 @@ class CreateProjectsTable extends Migration
             $table->text('plans');
             $table->text('images');
             $table->text('drawing');
+            $table->text('hash');
         });
     }
 
