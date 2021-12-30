@@ -65,11 +65,7 @@ class Project extends Model
                         
                         foreach($columns as $key=>$column) {
                             $isMatch = stripos($pat, $column);
-
-                            if ($key !== 'author') {
-                                $itemData[$key] = $itemData[$key] ?? null;
-                            }
-                            
+                            $itemData[$key] = $itemData[$key] ?? null;
                             $itemData['title'] = $projectDom->find('.arkhitex-detail-title.m-0', 0)->innerText;
 
                             if ($isMatch !== false) {
@@ -149,8 +145,9 @@ class Project extends Model
                     ];
                 }
                 $itemData['plans'] = json_encode($plans, JSON_UNESCAPED_UNICODE);
-                // $projectData[] = $itemData;   
-                self::insert($itemData);
+                // $projectData[] = $itemData;
+                unset($itemData['author']);   
+                self::insert($projectData);
             }   
         }
         // self::insert($projectData);
