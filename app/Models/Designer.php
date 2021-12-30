@@ -47,7 +47,7 @@ class Designer extends Model
             $contents = file_get_contents(self::$baseUrl . $matches[1]);
             Storage::disk('public')->put('/designers/' . $name, $contents);
             $designersData[] = $itemData;
-            self::insert($itemData);
+            self::insert([$itemData]);
         }
         // self::insert($designersData);
     }

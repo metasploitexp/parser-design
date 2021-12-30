@@ -147,7 +147,7 @@ class Project extends Model
                 $itemData['plans'] = json_encode($plans, JSON_UNESCAPED_UNICODE);
                 // $projectData[] = $itemData;
                 unset($itemData['author']);   
-                self::insert($itemData);
+                self::insert([$itemData]);
             }   
         }
         // self::insert($projectData);
