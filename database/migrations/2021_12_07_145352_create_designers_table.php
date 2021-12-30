@@ -15,12 +15,12 @@ class CreateDesignersTable extends Migration
     {
         Schema::create('designers', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
-            $table->text('speciality');
-            $table->text('city');
-            $table->text('description');
-            $table->json('images');
-            $table->text('hash');
+            $table->text('name')->nullable();
+            $table->text('speciality')->nullable();
+            $table->text('city')->nullable();
+            $table->text('description')->nullable();
+            $table->json('images')->nullable();
+            $table->text('hash')->nullable();
         });
 
     }

@@ -15,20 +15,20 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->text('designer_id');
-            $table->text('title');
-            $table->text('style');
-            $table->text('price');
-            $table->text('fullPrice');
-            $table->text('productionTime');
-            $table->text('footage');
-            $table->text('chooseOption');
-            $table->text('section');
-            $table->text('description');
-            $table->text('plans');
-            $table->text('images');
-            $table->text('drawing');
-            $table->text('hash');
+            $table->text('designer_id')->nullable();
+            $table->text('title')->nullable();
+            $table->text('style')->nullable();
+            $table->text('price')->nullable();
+            $table->text('fullPrice')->nullable();
+            $table->text('productionTime')->nullable();
+            $table->text('footage')->nullable();
+            $table->text('chooseOption')->nullable();
+            $table->text('section')->nullable();
+            $table->text('description')->nullable();
+            $table->text('plans')->nullable();
+            $table->text('images')->nullable();
+            $table->text('drawing')->nullable();
+            $table->text('hash')->nullable();
         });
     }
 
