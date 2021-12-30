@@ -15,6 +15,8 @@ use App\Http\Controllers\ProjectController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [DesignerController::class, 'designers']);
+
 
 Route::get('/parser', [MainController::class, 'parser']);
 Route::get('/parser/projects', [MainController::class, 'parserProjects']);
