@@ -1,4 +1,17 @@
 
+## Installation
+
+execute php composer install
+
+execute php artisan storage:link
+
+execute php atrisan migrate
+
+## Start 
+
+execute php artisan serve
+
+
 ## Parser Routes
 
 /parser - route to parse designers list
