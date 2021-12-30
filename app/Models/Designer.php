@@ -32,7 +32,12 @@ class Designer extends Model
             $itemData['speciality'] = $designerDom->find('.designer-detail .container .font-14', 0)->innerText;
             $itemData['city'] = $designerDom->find('.designer-detail .container .gray', 0)->innerText;
             $itemData['description'] = $designerDom->find('.designer-detail .container .font-14', 2)->innerText;
-            
+            $itemData['hash'] = md5($itemData['name'] . $itemData['city']);
+
+            if (self::where(['hash' => $itemData['hash']])->first()) {
+                continue;
+            }
+
             $style = $designer->find('.indproject-list-item-img', 0)->getAttribute('style');
             preg_match('/url\((.*)\)/', $style, $matches);
             $name = substr($matches[1], strrpos($matches[1], '/') + 1);
@@ -42,8 +47,9 @@ class Designer extends Model
             $contents = file_get_contents(self::$baseUrl . $matches[1]);
             Storage::disk('public')->put('/designers/' . $name, $contents);
             $designersData[] = $itemData;
+            self::insert($itemData);
         }
-        self::insert($designersData);
+        // self::insert($designersData);
     }
     
     public function getImagesAttribute($value) {

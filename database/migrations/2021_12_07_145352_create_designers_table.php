@@ -20,6 +20,7 @@ class CreateDesignersTable extends Migration
             $table->text('city');
             $table->text('description');
             $table->json('images');
+            $table->text('hash');
         });
 
     }
