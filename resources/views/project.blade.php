@@ -1,6 +1,7 @@
 
 <link rel="stylesheet" href="/design/css/first.css">
 <link rel="stylesheet" href="/design/css/second.css">
+<link rel="stylesheet" href="/design/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/solid.min.css">
     
     <section class="pt-5">
