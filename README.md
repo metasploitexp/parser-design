@@ -7,6 +7,8 @@
 
 `php atrisan migrate`
 
+`ln -s ././design`
+
 ## Start 
 
 `php artisan serve`
