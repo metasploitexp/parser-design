@@ -20,7 +20,7 @@ class DesignerController extends Controller
         ]);
     }
 
-    public function choosen($id) {
+    public function choosen(Request $request, $id) {
         $designer = Designer::where(['id' => $id])->first();
         $designer['images'] = json_decode($designer['images']);
         $projects = Project::where(['designer_id' => $id])->get()->toArray();
@@ -28,10 +28,15 @@ class DesignerController extends Controller
         foreach ($projects as $key=>$project) {
             $projects[$key]['images'] = json_decode($project['images']);
         }
+        $isAdmin = (bool) $_COOKIE['is_admin'];
+        // dd();
+        // $isAdmin = true;
+
 
         return view('choosen', [
             'designer' => $designer,
             'projects' => $projects,
+            'isAdmin' => $isAdmin,
         ]);
     }
 

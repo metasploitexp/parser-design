@@ -11,8 +11,11 @@
                     <div class="col">
                         <h1 class="font-24 mb-1">
                             {{$designer['name']}} &nbsp;
-                            <a href="/designers/edit/{{$designer['id']}}" class="btn btn-outline-info btn-sm">edit</a> &nbsp;
-                            <a href="/designers/delete/{{$designer['id']}}" class="btn btn-outline-warning btn-sm">delete</a>
+                            @if ($isAdmin)
+                                <a href="/designers/edit/{{$designer['id']}}" class="btn btn-outline-info btn-sm">edit</a> &nbsp;
+                                <a href="/designers/delete/{{$designer['id']}}" class="btn btn-outline-warning btn-sm">delete</a>
+                            @endif
+                            
                         </h1>
                         <div class="font-14 mb-1">
                             {{$designer['speciality']}}
@@ -24,7 +27,7 @@
                             О себе:
                         </div>
                         <div class="font-14 mb-1">
-                            {{$designer['description']}}
+                            {{html_entity_decode($designer['description'])}}
                         </div>
                     </div>
                 </div>
@@ -71,8 +74,10 @@
                                             </a>
                                         </div> <br>
                                         <div class="font-14">
+                                            @if($isAdmin)
                                             <a href="/projects/edit/{{$project['id']}}" class="btn btn-outline-warning btn-lg">Edit</a> &nbsp;
                                             <a href="/projects/delete/{{$project['id']}}" class="btn btn-outline-danger btn-lg">Delete</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

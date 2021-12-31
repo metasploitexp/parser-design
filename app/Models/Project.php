@@ -74,11 +74,9 @@ class Project extends Model
                                 if ($key == 'author') {
                                     $designer = Designer::where(['name' => $param->find('.font-16', 0)->innerText])->first();
                                     $itemData['designer_id'] = $designer->id;
-                                }
-
-                                if ($key == 'drawing') {
+                                } elseif ($key == 'drawing') {
                                     $name = substr($param->find('.font-16 a', 0)->getAttribute('href'), strrpos($param->find('.font-16 a', 0)->getAttribute('href'), '/') + 1);
-                                    $contents = file_get_contents('https://arkhitex.ru' . $param->find('.font-16 a', 0)->getAttribute('href'));
+                                    $contents = file_get_contents(self::$baseUrl . $param->find('.font-16 a', 0)->getAttribute('href'));
                                     Storage::disk('public')->put('/plans/' . $name, $contents);
                                     $itemData[$key] = json_encode([$name]);
                                 } else {
@@ -136,7 +134,7 @@ class Project extends Model
 
                 foreach($planList as $key=>$plan) {
                     $name = substr($plan, strrpos($plan, '/') + 1);
-                    $contents = file_get_contents('https://arkhitex.ru' . $plan);
+                    $contents = file_get_contents(self::$baseUrl . $plan);
                     Storage::disk('public')->put('/plans/' . $name, $contents);
                     echo '$planTitles[$key] ' . $planTitles[$key];
                     $plans[] = [
@@ -150,7 +148,6 @@ class Project extends Model
                 self::insert([$itemData]);
             }   
         }
-        // self::insert($projectData);
     }
 
     public function getImagesAttribute($value) {
