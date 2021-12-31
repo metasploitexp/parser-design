@@ -28,10 +28,7 @@ class DesignerController extends Controller
         foreach ($projects as $key=>$project) {
             $projects[$key]['images'] = json_decode($project['images']);
         }
-        $isAdmin = (bool) $_COOKIE['is_admin'] ?? false;
-        // dd();
-        // $isAdmin = true;
-
+        $isAdmin = isset($_COOKIE['is_admin']) ? (bool) $_COOKIE['is_admin'] : false;
 
         return view('choosen', [
             'designer' => $designer,
