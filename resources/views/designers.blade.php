@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="/css/second.css">
+    <link rel="stylesheet" href="/design/css/second.css">
     <div class="container my-5">
         <h1>Дизайнеры</h1>
         <div class="row align-items-stretch">

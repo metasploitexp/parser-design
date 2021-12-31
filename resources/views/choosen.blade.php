@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/second.css">
+<link rel="stylesheet" href="/design/css/second.css">
     
     <div class="designer-detail">
         <div class="gray-bg py-5">

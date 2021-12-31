@@ -65,5 +65,5 @@
         <input type="hidden" name="files_to_delete">
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
-    <script type="text/javascript" src="/js/create.js"></script>
+    <script type="text/javascript" src="/design/js/create.js"></script>
 @endsection

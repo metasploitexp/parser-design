@@ -1,6 +1,6 @@
 
-<link rel="stylesheet" href="/css/first.css">
-<link rel="stylesheet" href="/css/second.css">
+<link rel="stylesheet" href="/design/css/first.css">
+<link rel="stylesheet" href="/design/css/second.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/solid.min.css">
     
     <section class="pt-5">
@@ -90,8 +90,8 @@
         </div>
     </section>
 
-<script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="/js/core_ls.min.js"></script>
-<script type="text/javascript" src="/js/kernel_api_core_v1.js"></script>
-<script type="text/javascript" src="/js/template.js"></script>
-<script type="text/javascript" src="/js/page_v1.js"></script>
+<script type="text/javascript" src="/design/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/design/js/core_ls.min.js"></script>
+<script type="text/javascript" src="/design/js/kernel_api_core_v1.js"></script>
+<script type="text/javascript" src="/design/js/template.js"></script>
+<script type="text/javascript" src="/design/js/page_v1.js"></script>
