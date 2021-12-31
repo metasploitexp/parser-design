@@ -1,4 +1,6 @@
-
+@extends('layouts.master')
+@section('title', $project['title'])
+@section('content')
 <link rel="stylesheet" href="/design/css/first.css">
 <link rel="stylesheet" href="/design/css/second.css">
 <link rel="stylesheet" href="/design/css/style.css">
@@ -96,3 +98,4 @@
 <script type="text/javascript" src="/design/js/kernel_api_core_v1.js"></script>
 <script type="text/javascript" src="/design/js/template.js"></script>
 <script type="text/javascript" src="/design/js/page_v1.js"></script>
+@endsection

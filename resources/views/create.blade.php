@@ -1,7 +1,12 @@
 @extends('layouts.master')
 @section('title', 'create')
 @section('content')
-   
+    <style>
+        .container {
+            position: relative;
+            top: 50px;
+        }
+    </style>
     <form class="container col-6" enctype="multipart/form-data" action="{{$action}}" method="post">
         @csrf
         <input type="hidden" name="id" value="{{$designer['id'] ?? ''}}">

@@ -1,3 +1,6 @@
+@extends('layouts.master')
+@section('title', 'Дизайнеры')
+@section('content')
     <link rel="stylesheet" href="/design/css/second.css">
     <div class="container my-5">
         <h1>Дизайнеры</h1>
@@ -20,3 +23,4 @@
             @endforeach
         </div>
     </div>
+@endsection

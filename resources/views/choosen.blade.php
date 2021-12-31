@@ -1,3 +1,6 @@
+@extends('layouts.master')
+@section('title', $designer['name'])
+@section('content')
 <link rel="stylesheet" href="/design/css/second.css">
     
     <div class="designer-detail">
@@ -88,3 +91,4 @@
             </div>
         </div>
     </div>
+@endsection

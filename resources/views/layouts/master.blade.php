@@ -13,15 +13,12 @@
     <meta name="description" content="Дизайнеры интерьеров и архитекторы" />
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
 <body>
-    <style>
-        .container {
-            position: relative;
-            top: 50px;
-        }
-    </style>
+    
     @yield('content')
+    <script type="text/javascript" src="/design/js/script.js"></script>
 </body>
 </html>
