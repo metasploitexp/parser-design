@@ -34,3 +34,13 @@
 `/projects` - route to create Projects
 
 `/projects/edit/{id}` - dynamic route to edit project
+
+## Проксирование через Apache .htaccess
+
+RewriteRule ^designers/(.+)? http://IP:PORT/designers/$1 [P]
+
+RewriteRule ^projects/(.+)? http://IP:PORT/projects/$1 [P]
+
+RewriteRule ^storage/uploads/(.+) http://IP:PORT/storage/uploads/$1 [P]
+
+RewriteRule ^design/(.+) http://IP:PORT/design/$1 [P]
